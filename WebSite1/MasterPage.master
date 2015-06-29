@@ -1,0 +1,560 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="MasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
+    <head id="Head1" runat="server">
+    
+
+      <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+   
+    <title></title>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script> 
+<script type="text/javascript">
+    $(document).ready(function () {
+        SearchText();
+    });
+    function SearchText() {
+        $(".autosuggest").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "Default3.aspx/GetAutoCompleteData",
+                    data: "{'SEARCH':'" + document.getElementById('txtSearch').value + "'}",
+                    dataType: "json",
+                    success: function (data) {
+                        response(data.d);
+                    },
+                    error: function (result) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+    }
+    function ShowProgress() {
+        setTimeout(function () {
+            var modala = $('<div />');
+            modala.addClass("modala");
+            $('body').append(modala);
+            var loading = $(".loading");
+            loading.show();
+            var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+            var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+            loading.css({ top: top, left: left });
+        }, 200);
+    }
+    $('form').live("submit", function () {
+        ShowProgress();
+    });
+</script>
+           
+     <style type="text/css">
+    #text
+{
+float:left;
+width:100px;
+}
+.zoom
+{
+    height : 35px;
+     width : 60px;
+    
+ }
+.zoom:hover
+{
+windows : 70px;   
+width: 170px;
+height: 100px;
+border: 10px solid white;
+background-color:#000000;
+color:#fff;
+}
+
+.zoom1
+{
+    height : 60px;
+     width : 93px;
+    
+ }
+.zoom1:hover
+{
+position: absolute ;  
+width: 185px;
+height: 100px;
+border: 10px solid white;
+background-color:#000000;
+color:#fff;
+}
+
+.zoom2
+{
+    height : 120px;
+     width : 150px;
+     BorderColor="BlanchedAlmond"
+ }
+.zoom2:hover
+{
+ display :block ;
+position: relative    ;  
+width: 160px;
+height: 130px;
+border: 3px solid #47639E;
+background-color:#000000;
+color:#fff;
+
+}
+ 
+ .zoom4
+ {
+     height : 35 ;
+     width : 45 ;
+     
+ }
+ .zoom4:hover
+ {
+  position : relative  ;
+     width : 90;
+     height : 70;
+ }
+     
+/* TAB MENU   
+----------------------------------------------------------*/
+
+ 
+
+div.menu
+{
+    padding: 4px 0px 4px 8px;
+}
+
+div.menu ul
+{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+}
+
+div.menu ul li a, div.menu ul li a:visited
+{
+    background-color: #CCC;
+    border: 1px #4e667d solid;
+    color: Black ;
+    display: block;
+    line-height: 1.35em;
+    padding: 4px 20px;
+    text-decoration: none;
+    white-space: nowrap;
+    
+}
+
+div.menu ul li a:hover
+{
+    background-color: #000000;
+    color: White  ;
+    text-decoration: none;
+      
+}
+
+div.menu ul li a:active
+{
+    background-color: #465c71;
+    color: #cfdbe6;
+    text-decoration: none;
+      
+}
+
+/* FORM ELEMENTS  
+
+
+
+/*CSS for dropdown box*/
+select
+{
+width: 200px;
+height: 29px;
+border-radius: 3px;
+border: 1px solid #CCC;
+font-weight: 200;
+font-size: 15px;
+font-family: Verdana;
+box-shadow: 1px 1px 5px #CCC;
+}
+select: hover
+{
+width: 200px;
+height: 29px;
+border-radius: 3px;
+border: 1px solid #CCC;
+font-weight: 200;
+font-size: 15px;
+font-family: Verdana;
+box-shadow: 1px 1px 5px #CCC;
+}
+
+/*CSS for input textbox and password*/
+
+input[type='text'], input[type='password']
+{
+width: 200px;
+height: 29px;
+border-radius: 3px;
+border: 1px solid #CCC;
+padding: 8px;
+font-weight: 200;
+font-size: 15px;
+font-family: Verdana;
+box-shadow: 1px 1px 5px #CCC;
+}
+
+input[type='text']:hover, input[type='password']:hover
+{
+width: 200px;
+height: 29px;
+border-radius: 3px;
+border: 1px solid #aaa;
+padding: 8px;
+font-weight: 200;
+font-size: 15px;
+font-family: Verdana;
+box-shadow: 1px 1px 5px #CCC;
+}
+
+/*CSS for textarea*/
+
+textarea
+{
+width: 200px;
+height: 90px;
+border-radius: 3px;
+border: 1px solid #CCC;
+padding: 8px;
+font-weight: 200;
+font-size: 15px;
+font-family: Verdana;
+box-shadow: 1px 1px 5px #CCC;
+}
+textarea:hover
+{
+width: 200px;
+height: 90px;
+border-radius: 3px;
+border: 1px solid #aaa;
+padding: 8px;
+font-weight: 200;
+font-size: 15px;
+font-family: Verdana;
+box-shadow: 1px 1px 5px #CCC;
+}
+
+/*input type for submit button*/
+
+input[type='submit']
+{
+width: 150px;
+height: 34px;
+border: 2px solid white;
+background-color:#CCC;
+}
+input[type='submit']:hover
+{
+width: 150px;
+height: 34px;
+border: 2px solid white;
+background-color:#000000;
+color:#fff;
+}
+    
+    
+    .styled-button-2 {
+	-webkit-box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+	-moz-box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+	box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+	border-bottom-color:#333;
+	border:1px solid #61c4ea;
+	background-color:#7cceee;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	color:#333;
+	font-family:'Verdana',Arial,sans-serif;
+	font-size:14px;
+	text-shadow:#b2e2f5 0 1px 0;
+	padding:5px
+}
+ 
+    .modal-backdrop {
+           background-color: rgba(0, 0, 0, 0.61);
+           position: absolute;
+           top: 0;
+           bottom: 0;
+           left: 0;
+           right: 0;
+           display: none;
+       }
+       .modal{
+           width: 500px;
+           position: absolute;
+           top: 25%;
+           z-index: 1020;
+           background-color: #FFF;
+           border-radius: 6px;
+           display: none;
+       }
+       .modal-header {
+           background-color: #333;
+           color: #FFF;
+           border-top-right-radius: 5px;
+           border-top-left-radius: 5px;
+       }
+       .modal-header h3 {
+           margin: 0;
+           padding: 0 10px 0 10px;
+           line-height: 40px;
+       }
+       .modal-header h3 .close-modal {
+           float: right;
+           text-decoration: none;
+           color: #FFF;
+       }
+       .modal-footer {
+           background-color: #F1F1F1;
+           padding: 0 10px 0 10px;
+           line-height: 40px;
+           text-align: right;
+           border-bottom-right-radius: 5px;
+           border-bottom-left-radius: 5px;
+           border-top: solid 1px #CCC;
+       }
+       .modal-body {
+           padding: 0 10px 0 10px;
+       }
+       .uploadfile {
+           display: block;
+           margin: 5px auto;
+           padding:15px;
+           width: 400px;
+       }
+       .button{
+           background-color:green;
+           border:0;
+           padding:10px 40px;
+           color:#FFF;border:#F0F0F0 1px solid;
+           border-radius:4px;
+       }
+       .progress {
+           position:relative;
+           width:400px;
+           border: 1px solid #ddd;
+           padding: 1px;
+           border-radius: 3px;
+           height: 25px;
+       }
+       .bar {
+           background-color: #7FED7B;
+           width:0%;
+           height:25px;
+           border-radius: 3px;
+       }
+       .percent {
+           position:absolute;
+           display:inline-block;
+           top:3px;
+           left:48%;
+       }
+         #status{
+           margin-top: 30px;
+       }
+         #txtSearch
+         {
+             width: 582px;
+             height: 16px;
+         }
+         .style6
+         {
+             width: 547px;
+         }
+         .ui-widget
+         {
+             width: 677px;
+         }
+         .style8
+         {
+             width: 95%;
+             height: 47px;
+         }
+      
+         .style9
+         {
+             width: 286px;
+         }
+         .style10
+         {
+             width: 583px;
+         }
+      
+         .style1
+         {
+             width: 1122px;
+             height: 85px;
+         }
+         .wysihtml5-supported
+         {
+             width: 1247px;
+         }
+         .style11
+         {
+             width: 1101px;
+         }
+               
+         .style14
+         {
+             width: 137px;
+         }
+         .style17
+         {
+             width: 100%;
+         }
+                        
+         .style18
+         {
+             height: 47px;
+         }
+               
+         </style>
+ 
+      
+ 
+     
+</head>
+<body aling="center"  >
+    <form id="form1" runat="server">
+    
+    
+  
+    <div   >
+    <div align= "center" >
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+            <table class="style1">
+                <tr>
+                    <td class="style11" bgcolor="White" align="center">
+                        <asp:Panel ID="Panel1" runat="server" Height="66px" Width="1200px" 
+                            BackColor="#47639E" >
+                            <table class="style3" align="left">
+                                <tr>
+                                    <td align="center" class="style14">
+                                        <table class="style17">
+                                            <tr>
+                                                <td>
+                                                    <asp:ImageButton ID="ImageButton1" runat="server" Height="47px" 
+                                                        ImageAlign="Top" ImageUrl="~/img/name.png" onclientclick="Home.aspx" 
+                                                        TabIndex="10" Width="205px" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    &nbsp;</td>
+                                            </tr>
+                                        </table>
+                                     </td>
+                                    <td class="style6">
+
+                                    <div class="demo">
+<div class="ui-widget" align="left">
+ 
+    <table class="style8">
+        <tr>
+            <td class="style10">
+                <input type="text" id="txtSearch" class="autosuggest" name="txtSearch" style="border-style: double double hidden double; color: #000000; font-weight: bold; background-color: #FFFFFF;"  />
+            </td>
+            <td>
+                <asp:ImageButton ID="ImageButton2" runat="server" align="buttom" Height="33px" 
+                    ImageUrl="~/img/search1.png" Width="25px" />
+            </td>
+        </tr>
+    </table>
+                                        </div>
+    
+</div>
+                                        &nbsp;</td>
+                                    <td class="style9" align="right">
+                                        <table class="style17">
+                                            <tr>
+                                                <td class="style18">
+                                                </td>
+                                                <td class="style18">
+                                                    <asp:ImageButton ID="ImageButton3" runat="server" Height="24px" 
+                                                        ImageUrl="~/socal image/f-1.gif" Width="33px" />
+                                                </td>
+                                                <td class="style18">
+                                                    <asp:ImageButton ID="ImageButton4" runat="server" Height="25px" 
+                                                        ImageUrl="~/socal image/l-1.gif" Width="30px" />
+                                                </td>
+                                                <td class="style18">
+                                                    <asp:ImageButton ID="ImageButton5" runat="server" Height="24px" 
+                                                        ImageUrl="~/socal image/s-1.gif" Width="34px" />
+                                                </td>
+                                                <td class="style18">
+                                                    <asp:ImageButton ID="ImageButton7" runat="server" Height="23px" 
+                                                        ImageUrl="~/socal image/b-1.gif" Width="33px" />
+                                                </td>
+                                                <td class="style18">
+                                                    <asp:Menu ID="NavigationMenu" runat="server" BackColor="#333333" class="menu" 
+                                                        Font-Bold="True" ForeColor="#000099" IncludeStyleBlock="false" 
+                                                        Orientation="Horizontal" RenderingMode="List" ScrollDownImageUrl="~/loader.gif">
+                                                        <DynamicHoverStyle BackColor="#9999FF" />
+                                                        <DynamicMenuItemStyle BackColor="#6600CC" />
+                                                        <DynamicMenuStyle BackColor="#0000CC" />
+                                                        <DynamicSelectedStyle BackColor="#000066" />
+                                                        <Items>
+                                                            <asp:MenuItem NavigateUrl="~/Default3.aspx" Text="[Log_In]" Value="[Log_In]">
+                                                            </asp:MenuItem>
+                                                        </Items>
+                                                    </asp:Menu>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    &nbsp;</td>
+                                                <td>
+                                                    &nbsp;</td>
+                                                <td>
+                                                    &nbsp;</td>
+                                                <td>
+                                                    &nbsp;</td>
+                                                <td>
+                                                    &nbsp;</td>
+                                                <td>
+                                                    &nbsp;</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </asp:Panel>
+                    </td>
+                </tr>
+            </table>
+        
+        </asp:ContentPlaceHolder>
+         
+           <asp:ContentPlaceHolder id="ContentPlaceHolder2" runat="server">
+
+        
+        </asp:ContentPlaceHolder>
+        
+      
+    </div>
+       
+    <div align ="center" style="width: 1247px" >
+    Vikash gupta
+    </div>
+    </div> 
+    </form>
+</body>
+</html>
